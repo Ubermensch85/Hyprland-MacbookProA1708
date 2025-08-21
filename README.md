@@ -1,7 +1,7 @@
 # Hyprland-MacbookProA1708
 
-Con il kernel linux-zen sono necessari firmware aggiuntivi 
-dkms:                                                    
+Con il kernel linux-zen sono necessari firmware aggiuntivi dkms : 
+
 applesmc-next           #Gestione batteria
 facetimehd              #Webcam 
 snd-hda-macbookpro      #Audio
