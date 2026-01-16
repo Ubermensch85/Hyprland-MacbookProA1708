@@ -12,12 +12,13 @@
     "spacing": 12, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-    //    "custom/command"
+      "custom/arch",
     //"hyprland/window"
     "hyprland/workspaces"
     ],
     "modules-center": [
-        "clock"       
+        "custom/weather",
+	"clock"      
     ],
     "modules-right": [
         "cpu",
@@ -28,7 +29,7 @@
         "custom/gammastep",
        "pulseaudio",
 //        "pulseaudio#mic",
-        "bluetooth",
+//        "bluetooth",
         "network",
         "battery"
     ],
@@ -53,6 +54,15 @@
         // "icon-size": 21,
         "spacing": 10
     },
+
+    "custom/arch": {
+    "format": "<span size='large'>󰣇</span> ",
+    "tooltip": "Clicca per system info",
+    "escape": false,
+    "on-click": "exec ~/.config/waybar/arch-script.sh"
+},
+
+
     "clock": {
         "format-alt": "{:%Y-%m-%d}",
 //        "format": "{:%A %d %B, %H:%M}",
@@ -88,6 +98,30 @@
     "memory": {
         "format": "RAM {}%",
     },
+    
+
+   "custom/weather": {
+    "format": "{}",
+    "tooltip": true,
+    "interval": 3600,
+    "exec": "wttrbar --location Perugia --lang it --hide-conditions --nerd",
+    "return-type": "json"
+},
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
     "bluetooth": {
         "format": "",
         "format-disabled": "", // an empty format will hide the module
@@ -100,7 +134,7 @@
     },
     "temperature": {
         // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C",
         "format": "TEMP {temperatureC}°C]",
@@ -112,10 +146,9 @@
         "tooltip": false,
     },
     "backlight": {
-        // "device": "acpi_video1",
-        "format": "{icon}",
-		"format-icons": ["", ""]
-    },
+  "format": "{icon} {percent}%",
+  "format-icons": ["□","▢","▤","▥","▦","▧","▨","▩","■"]
+},
     "battery": {
         "states": {
             // "good": 95,
@@ -139,7 +172,8 @@
         "format": "",
         "format-wifi": "",
         "format-disconnected": "",
-        //"interface": "enp6s0", // (Optional) To force the use of this interface
+        "on-click": "networkmanager_dmenu",
+	//"interface": "enp6s0", // (Optional) To force the use of this interface
         //"format-wifi": "{essid} ({signalStrength}%) ",
         //"format-ethernet": "{ipaddr}/{cidr} ",
         //"tooltip-format": "{ifname} via {gwaddr} ",
