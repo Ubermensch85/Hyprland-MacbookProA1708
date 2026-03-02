@@ -1,5 +1,10 @@
 #!/usr/bin/bash
 
+
+# === 1. Environment PRIMA DI TUTTO ===
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
+systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
+
 # === WOB (On-Screen Display) ===
 rm -f $XDG_RUNTIME_DIR/wob.wob
 mkfifo $XDG_RUNTIME_DIR/wob.wob
@@ -9,7 +14,7 @@ tail -f $XDG_RUNTIME_DIR/wob.wob | wob &
 ~/.local/bin/brightness-monitor.sh &
 
 # === Blue light filter ===
-gammastep 2>/dev/null &
+#gammastep 2>/dev/null &
 
 # === Notifications ===
 mako &
@@ -24,16 +29,13 @@ swaybg -i $HOME/Pictures/mary.png -m fill &
 /usr/local/bin/kbd-backlight.sh &
 
 # === Waybar (con delay) ===
-sleep 6
-$HOME/scripts/waybar_top.sh &
-$HOME/scripts/waybar_bottom.sh &
+#sleep 10
+sh $HOME/scripts/waybar.sh &
 
 # === Polkit ===
 /usr/lib/polkit-kde-authentication-agent-1 &
 
-# === Environment ===
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
-systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
+
 
 # === GTK Settings ===
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita &
